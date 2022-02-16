@@ -7,7 +7,7 @@ function App() {
   return (
     <div >
      <Todolis/>
-      <h1>helllll</h1>
+      {/* <h1>helllll</h1> */}
     </div>
   );
 }
