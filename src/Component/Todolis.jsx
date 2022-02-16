@@ -1,31 +1,45 @@
-import React,{useState,Fragment} from "react";
+import React,{useState} from "react";
 
 
-// const[data,setData]=useState("")
-function Todolis() {
-   const[name,setName]=useState("");
-   const [storeEnter,setStoreEnter] = useState("");
-   console.log(name);
-   const store=(e)=>{
-     e.preventDefault();
-     const newData={name:name}
-     setStoreEnter([...storeEnter,newData])
-     console.log(storeEnter);
+const Todolis=()=> {
+  const[userRegistration,setuserRegistration]=useState({
+            userName:"",
+            emailId:"",
+            mobileNo:"",
+            ProjectName:"",
+            taskDescription:"",
+            stDate:"",
+            targetDate:"",
+  }); 
+  const [records,setRecords]=useState([]);
+  const handleAddFormChange =(e)=>{
+    const name = e.target.name;
+    const value= e.target.value;
+    console.log(name,value);
+
+    setuserRegistration({ ...userRegistration, [name] : value});
    }
-  return (
+   const handleSubmit = (e) => {
+     e.preventDefault();
+    //    console.log(records); 
+
+     const newRecord = { ...userRegistration, id: new Date().getTime().toString() }
+    setRecords([...records,newRecord]);
+    console.log(records);
+   }
+   return (
     <div>
       <h1 style={{textAlign:"center"}} >TodoList</h1>
-      <form onSubmit={store} style={{marginLeft:"360px"}}>
+       <form action="" submit={handleSubmit} style={{marginLeft:"360px"}} > 
       <div style={{marginRight:"360px"}}>
       <br/>
        <input
          type="text"
           className="form-control"
-          id="exampleFormControlInput1"
+          name="userName"
           placeholder="Enter person name (3-20 Char only)"
-          // onChange={handleAddFormChange}
-          
-          // onChange={e=>setName(e.target.value)}
+          value={userRegistration.userName}
+           onChange={handleAddFormChange}
           />
 
         <br/> 
@@ -33,70 +47,80 @@ function Todolis() {
           <div className="col-md-6">
             <input
               type="email"
+              name="emailId"
               className="form-control"
               placeholder="Enter a valid Email id"
-              // onChange={handleAddFormChange}
+              value={userRegistration.emailId}
+             onChange={handleAddFormChange}
             />
           </div>
           <div className="col">
             <input
               type="number"
+              name="mobileNo"
               className="form-control"
               placeholder="Enter a valid Mobileno"
-              // onChange={handleAddFormChange}
+              value={userRegistration.mobileNo}
+              onChange={handleAddFormChange}
             />
             <br/>
           </div>
         </div>
         <input
           type="text"
+          name="ProjectName"
           className="form-control"
-          id="exampleFormControlInput4"
+        
           placeholder="Enter a project Name (3-20 Char and number only)"
-          // onChange={handleAddFormChange}
+          value={userRegistration.ProjectName}
+          onChange={handleAddFormChange}
         />
         <br/> 
         <input
           type="text"
+          name="taskDescription"
           className="form-control"
-          id="exampleFormControlInput4"
+          
           placeholder="Enter task description (3-30 Char/Num/Spl Char also)"
-          // onChange={handleAddFormChange}
+          value={userRegistration.taskDescription}
+          onChange={handleAddFormChange}
         />
         <br/>
         <div className="row">
           <div className="col">
-            <input type="date" className="form-control" placeholder="Start Date" 
-            // onChange={handleAddFormChange}
+            <input type="date" name="stDate" className="form-control" placeholder="Start Date" 
+            value={userRegistration.stDate}
+            onChange={handleAddFormChange}
             />
           </div>
           <div className="col">
-            <input type="date" className="form-control" placeholder="Target Date" 
-            //  onChange={handleAddFormChange}
+            <input type="date" name="ttDate" className="form-control" placeholder="Target Date" 
+            value={userRegistration.targetDate}
+            onChange={handleAddFormChange}
              />
           </div>
         </div>
         <br/> 
          <div>  
-        <div class="form-check form-check-inline">
+        <div className="form-check form-check-inline">
         <div className="col-md-2"><h6>Task Status</h6></div>
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+  <input className="form-check-input" type="radio" name="inlineRadioOptions"  value="option1"/>
   <label class="form-check-label" for="inlineRadio1" >Planned</label>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-  <label class="form-check-label" for="inlineRadio2">In-Progress</label>
+<div className="form-check form-check-inline">
+  <input classNmae="form-check-input" type="radio" name="inlineRadioOptions"  value="option2"/>
+  <label className="form-check-label" for="inlineRadio2">In-Progress</label>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"/>
-  <label class="form-check-label" for="inlineRadio2">Done</label>
+<div className="form-check form-check-inline">
+  <input className="form-check-input" type="radio" name="inlineRadioOptions"  value="option3"/>
+  <label className="form-check-label" for="inlineRadio2">Done</label>
 </div>
 </div> 
 
  <div className="" style={{textAlign:"center"}}> 
-<button type="button" class="btn btn-primary btn-sm">Save</button>
+<button type="submit" className="btn btn-primary btn-sm">Save</button>
 
-<button type="button" class="btn btn-danger btn-sm">Clear</button>
+<button type="button" className="btn btn-danger btn-sm">Clear</button>
 
 
 </div>
@@ -120,19 +144,16 @@ function Todolis() {
           </tr>
         </thead>
         <tbody>
-          {
-            storeEnter?storeEnter.map((ele)=>{
-            return <tr>
-              <td>{ele.name}</td>
-            </tr>  
-            }):null
-          }
-
-        
-              
-
-          
-        </tbody>
+         {
+           records.map((curElem) =>{
+             return(
+               <tr>
+                 <td>{curElem.userName}</td>
+               </tr>
+             )
+           })
+         }
+      </tbody>
       </table>
       </div>
     </div>
