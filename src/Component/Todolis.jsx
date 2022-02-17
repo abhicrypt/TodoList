@@ -19,7 +19,7 @@ const Todolis=()=> {
 
     setuserRegistration({ ...userRegistration, [name] : value});
    }
-   const handleSubmit = (e) => {
+   const submitForm=(e)=>{
      e.preventDefault();
     //    console.log(records); 
 
@@ -29,8 +29,8 @@ const Todolis=()=> {
    }
    return (
     <div>
-      <h1 style={{textAlign:"center"}} >TodoList</h1>
-       <form action="" submit={handleSubmit} style={{marginLeft:"360px"}} > 
+      <h1 style={{textAlign:"center"}} >Form validation</h1>
+       <form  onSubmit={submitForm} style={{marginLeft:"360px"}} > 
       <div style={{marginRight:"360px"}}>
       <br/>
        <input
@@ -94,7 +94,7 @@ const Todolis=()=> {
             />
           </div>
           <div className="col">
-            <input type="date" name="ttDate" className="form-control" placeholder="Target Date" 
+            <input type="date" name="targetDate" className="form-control" placeholder="target Date" 
             value={userRegistration.targetDate}
             onChange={handleAddFormChange}
              />
@@ -104,16 +104,16 @@ const Todolis=()=> {
          <div>  
         <div className="form-check form-check-inline">
         <div className="col-md-2"><h6>Task Status</h6></div>
-  <input className="form-check-input" type="radio" name="inlineRadioOptions"  value="option1"/>
-  <label class="form-check-label" for="inlineRadio1" >Planned</label>
+  <input className="form-check-input" type="radio" name="planned"  value="planned"/>
+  <label className="form-check-label" htmlFor="inlineRadio1" >Planned</label>
 </div>
 <div className="form-check form-check-inline">
-  <input classNmae="form-check-input" type="radio" name="inlineRadioOptions"  value="option2"/>
-  <label className="form-check-label" for="inlineRadio2">In-Progress</label>
+  <input className="form-check-input" type="radio" name="inProgress"  value="inProgress"/>
+  <label className="form-check-label" htmlFor="inlineRadio2">In-Progress</label>
 </div>
 <div className="form-check form-check-inline">
-  <input className="form-check-input" type="radio" name="inlineRadioOptions"  value="option3"/>
-  <label className="form-check-label" for="inlineRadio2">Done</label>
+  <input className="form-check-input" type="radio" name="done"  value="done"/>
+  <label className="form-check-label" htmlFor="inlineRadio2">Done</label>
 </div>
 </div> 
 
@@ -147,8 +147,16 @@ const Todolis=()=> {
          {
            records.map((curElem) =>{
              return(
-               <tr>
+               
+               <tr key={curElem.id}>
+                 <td>1</td>
                  <td>{curElem.userName}</td>
+                 <td>{curElem.emailId}</td>
+                 <td>{curElem.mobileNo}</td>
+                 <td>{curElem.ProjectName}</td>
+                 <td>{curElem.taskDescription}</td>
+                 <td>{curElem.stDate}</td>
+                 <td>{curElem.targetDate}</td>
                </tr>
              )
            })
@@ -157,7 +165,7 @@ const Todolis=()=> {
       </table>
       </div>
     </div>
-  );
+  )
 }
 
 export default Todolis;
